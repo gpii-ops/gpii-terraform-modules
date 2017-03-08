@@ -1,0 +1,6 @@
+access_key = "ACCESS_KEYYYYYYYYYYY"
+secret_key = "SECRET_KEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+key_name = "donkey"
+region = "us-east-1"
+ami = "ami-13be557e"
+instance_type = "t2.micro"

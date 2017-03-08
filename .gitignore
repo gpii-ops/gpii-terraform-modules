@@ -1,0 +1,5 @@
+.*.sw?
+.bundle/
+.kitchen/
+.terraform/
+vendor/
