@@ -19,8 +19,10 @@ terragrunt = {
   }
 }
 
-access_key = "ACCESS_KEYYYYYYYYYYY"
-secret_key = "SECRET_KEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+# Probably easiest to create a ~/.aws, as for use with the aws cli. However you
+# can also hardcode credentials here (for testing; don't commit them!).
+access_key = ""
+secret_key = ""
 key_name = "donkey"
 region = "us-east-1"
 ami = "ami-13be557e"
