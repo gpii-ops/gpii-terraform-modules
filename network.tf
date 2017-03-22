@@ -1,6 +1,4 @@
-# Copied from "Basic Example Usage, with default rules"
-# https://www.terraform.io/docs/providers/aws/r/default_security_group.html
-resource "aws_vpc" "mainvpc" {
+resource "aws_vpc" "main" {
   cidr_block = "10.11.0.0/16"  # These go to 11
   enable_dns_hostnames = true
   tags {
@@ -8,21 +6,43 @@ resource "aws_vpc" "mainvpc" {
   }
 }
 
-resource "aws_subnet" "mainsubnet" {
-  vpc_id = "${aws_vpc.mainvpc.id}"
+resource "aws_internet_gateway" "main" {
+  vpc_id = "${aws_vpc.main.id}"
+  tags {
+    Name = "main internet gateway"
+  }
+}
+
+resource "aws_subnet" "main" {
+  vpc_id = "${aws_vpc.main.id}"
   # Use biggest subnets possible, according to
   # https://medium.com/aws-activate-startup-blog/practical-vpc-design-8412e1a18dcc#.4iftmeqja
   cidr_block = "10.11.32.0/19"
+  depends_on = ["aws_internet_gateway.main"]
   tags {
     Name = "main subnet"
   }
 }
 
-# Copied from "Basic Example Usage, with default rules"
-# https://www.terraform.io/docs/providers/aws/r/default_security_group.html
-resource "aws_default_security_group" "default" {
-  vpc_id = "${aws_vpc.mainvpc.id}"
+resource "aws_route_table" "main" {
+  vpc_id = "${aws_vpc.main.id}"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.main.id}"
+  }
 
+  tags {
+    Name = "main route table"
+  }
+}
+
+resource "aws_route_table_association" "main" {
+  subnet_id = "${aws_subnet.main.id}"
+  route_table_id = "${aws_route_table.main.id}"
+}
+
+resource "aws_default_security_group" "default" {
+  vpc_id = "${aws_vpc.main.id}"
   ingress {
     protocol  = -1
     self      = true
@@ -38,15 +58,18 @@ resource "aws_default_security_group" "default" {
   }
 
   tags {
-    Name = "terraform default security group"
+    Name = "terraform default"
   }
 }
 
 # Allow ssh from everywhere (for now)
-resource "aws_security_group" "allow_ssh_from_everywhere" {
-  #name = "allow_ssh_from_everywhere"
-  description = "Allow inbound ssh from everywhere"
-  vpc_id = "${aws_vpc.mainvpc.id}"
+resource "aws_security_group" "main" {
+  name = "main security group"
+  description = "Allow ssh from everywhere"
+  vpc_id = "${aws_vpc.main.id}"
+  tags {
+    Name = "main security group"
+  }
 }
 
 resource "aws_security_group_rule" "allow_ssh_from_everywhere" {
@@ -55,5 +78,5 @@ resource "aws_security_group_rule" "allow_ssh_from_everywhere" {
   to_port = 22
   protocol = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = "${aws_security_group.allow_ssh_from_everywhere.id}"
+  security_group_id = "${aws_security_group.main.id}"
 }
