@@ -21,7 +21,7 @@ verifier:
     - name: default
       controls:
         - operating_system
-      hostnames: public_dns
+      hostnames: public_ip
       username: ubuntu
 
 suites:

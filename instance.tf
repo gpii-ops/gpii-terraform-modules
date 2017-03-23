@@ -9,3 +9,8 @@ resource "aws_instance" "main" {
     Name = "main"
   }
 }
+
+resource "aws_eip" "main_instance" {
+  instance = "${aws_instance.main.id}"
+  vpc = true
+}
