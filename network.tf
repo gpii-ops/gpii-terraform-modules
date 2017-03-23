@@ -81,3 +81,12 @@ resource "aws_security_group_rule" "allow_ssh_from_everywhere" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = "${aws_security_group.main.id}"
 }
+
+resource "aws_security_group_rule" "allow_all_outbound" {
+  type = "egress"
+  from_port = 0
+  to_port = 0
+  protocol = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.main.id}"
+}

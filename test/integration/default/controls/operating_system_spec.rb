@@ -1,5 +1,6 @@
 control 'operating_system' do
-  describe command('lsb_release -a') do
-    its('stdout') { should match (/Ubuntu/) }
+  # Verify outbound connectivity by pinging Google DNS
+  describe command('ping -c 1 8.8.8.8') do
+    its('exit_status') { should eq 0 }
   end
 end

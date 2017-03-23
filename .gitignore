@@ -1,6 +1,6 @@
 .*.sw?
 .bundle/
-graph.png
+graph*.png
 .kitchen/
 .terraform/
 test/inspec.lock
