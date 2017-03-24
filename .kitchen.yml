@@ -8,7 +8,7 @@ provisioner:
     - testing.tfvars
 
 platforms:
-  - name: ubuntu
+  - name: centos
 
 transport:
   name: ssh
@@ -22,7 +22,7 @@ verifier:
       controls:
         - operating_system
       hostnames: public_ip
-      username: ubuntu
+      username: centos
 
 suites:
   - name: default
