@@ -7,6 +7,8 @@ resource "aws_instance" "main" {
   vpc_security_group_ids = ["${aws_security_group.main.id}"]
   tags {
     Name = "main"
+    # For use by ansible via terraform-inventory
+    Group = "aws_gpii_ci_docker"
   }
 }
 
