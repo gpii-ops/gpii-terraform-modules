@@ -10,6 +10,24 @@ resource "aws_instance" "main" {
     # For use by ansible via terraform-inventory
     Group = "aws_gpii_ci_docker"
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      # kitchen runs sudo without a tty and gets this error:
+      #
+      # Failed to complete #verify action: [Sudo failed: Sudo requires a TTY.
+      # Please see the README on how to configure sudo to allow for
+      # non-interactive usage.] on default-centos
+      #
+      # I don't see a way to pass "-t" through kitchen or terraform so this is
+      # a workaround.
+      "sudo sed -i /etc/sudoers -e 's/Defaults    requiretty/Defaults    !requiretty/g'",
+      #"sudo yum install python",
+    ]
+    connection {
+      user = "centos"
+    }
+  }
 }
 
 resource "aws_eip" "main_instance" {
