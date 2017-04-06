@@ -30,7 +30,9 @@ resource "aws_instance" "main" {
   }
 }
 
-resource "aws_eip" "main_instance" {
-  instance = "${aws_instance.main.id}"
-  vpc = true
-}
+# Disabled for now because terraform-inventory discovers the wrong (original)
+# public ip after this elastic ip is attached.
+# resource "aws_eip" "main_instance" {
+#   #instance = "${aws_instance.main.id}"
+#   vpc = true
+# }
