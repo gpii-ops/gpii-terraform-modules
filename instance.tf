@@ -22,7 +22,15 @@ resource "aws_instance" "main" {
       # I don't see a way to pass "-t" through kitchen or terraform so this is
       # a workaround.
       "sudo sed -i /etc/sudoers -e 's/Defaults    requiretty/Defaults    !requiretty/g'",
-      #"sudo yum install python",
+      # docker is for doing docker things, like running docker containers.
+      # docker-py is for ansible to interact with docker.
+      "sudo yum install -y docker python-docker-py",
+      # Something is weird with the docker package and selinux. See e.g.
+      # https://github.com/docker/docker/issues/30097.
+      #
+      # For now, just disable selinux :(.
+      "sudo setenforce permissive",
+      "sudo systemctl start docker",
     ]
     connection {
       user = "centos"
