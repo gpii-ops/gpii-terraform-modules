@@ -20,7 +20,7 @@ terragrunt = {
 }
 
 # Probably easiest to create a ~/.aws, as for use with the aws cli. However you
-# can also hardcode credentials here (for testing; don't commit them!).
+# can also hardcode credentials here (for testing only -- don't commit them!).
 access_key = ""
 secret_key = ""
 key_name = "donkey"
