@@ -3,7 +3,7 @@ terragrunt = {
   lock {
     backend = "dynamodb"
     config {
-      state_file_id = "dev-troscoe"
+      state_file_id = "dev-${get_env("USER", "unknown_user")}"
     }
   }
 
@@ -12,9 +12,9 @@ terragrunt = {
     backend = "s3"
     config {
       encrypt = "true"
-      bucket = "dev-troscoe"
+      bucket = "dev-${get_env("USER", "unknown_user")}"
       key = "terraform.tfstate"
-      region = "us-west-2"
+      region = "us-east-1"
     }
   }
 }
