@@ -66,7 +66,6 @@ resource "aws_default_security_group" "default" {
 # Allow ssh from everywhere (for now)
 resource "aws_security_group" "main" {
   name = "main security group"
-  description = "Allow ssh from everywhere"
   vpc_id = "${aws_vpc.main.id}"
   tags {
     Name = "main security group"
