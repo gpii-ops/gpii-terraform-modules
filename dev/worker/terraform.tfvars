@@ -1,3 +1,13 @@
+terragrunt = {
+  include {
+    path = "${find_in_parent_folders()}"
+  }
+
+  dependencies {
+    paths = ["../base"]
+  }
+}
+
 key_name = "donkey"
 # CentOS 7.2 1602 from
 # https://aws.amazon.com/marketplace/fulfillment?productId=b7ee8a69-ee97-4a49-9e68-afaee216db2e&ref_=dtl_psb_continue&region=us-east-1
