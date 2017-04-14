@@ -1,10 +1,10 @@
 resource "aws_instance" "main" {
-  ami = "${lookup(var.amis, module.base.region)}"
+  ami = "${lookup(var.amis, data.terraform_remote_state.base.region)}"
   instance_type = "${var.instance_type}"
   key_name = "${var.key_name}"
-  subnet_id = "${module.base.subnet_main_id}"
+  subnet_id = "${data.terraform_remote_state.base.subnet_main_id}"
   associate_public_ip_address = true
-  vpc_security_group_ids = ["${module.base.security_group_main_id}"]
+  vpc_security_group_ids = ["${data.terraform_remote_state.base.security_group_main_id}"]
   tags {
     Name = "main"
     # For use by ansible via terraform-inventory
