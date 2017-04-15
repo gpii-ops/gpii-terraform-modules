@@ -1,7 +1,3 @@
-variable "key_name" {
-  default = "donkey"
-}
-
 # CentOS 7.2 1602 from
 # https://aws.amazon.com/marketplace/fulfillment?productId=b7ee8a69-ee97-4a49-9e68-afaee216db2e&ref_=dtl_psb_continue&region=us-east-1
 # (CentOS doesn't currently publish an AWS 7.3 image. https://bugs.centos.org/view.php?id=12448)
