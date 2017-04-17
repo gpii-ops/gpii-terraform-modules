@@ -4,7 +4,7 @@ data "terraform_remote_state" "base" {
   backend = "s3"
   config {
     bucket = "gpii-terraform-state"
-    key = "dev/base/terraform.tfstate"
+    key = "${var.environment}/base/terraform.tfstate"
     region = "us-east-1"
   }
 }

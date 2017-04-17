@@ -13,3 +13,7 @@ variable "amis" {
 variable "instance_type" {
   default = "t2.micro"
 }
+
+variable "environment" {
+  description = "Used for finding the correct remote state for modules we depend on"
+}
