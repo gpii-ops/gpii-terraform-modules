@@ -15,3 +15,5 @@ variable "region" {
 variable "ssh_key_name" {
   default = "gpii-key"
 }
+
+variable "environment" {}
