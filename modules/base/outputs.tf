@@ -10,7 +10,7 @@ output "region" {
 }
 
 output "ssh_key_name" {
-  value = "${var.ssh_key_name}"
+  value = "${aws_key_pair.main.key_name}"
 }
 
 output "subnet_main_id" {
