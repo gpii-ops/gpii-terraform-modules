@@ -9,6 +9,8 @@ resource "aws_instance" "main" {
     Name = "main"
     # For use by ansible via terraform-inventory
     Group = "aws_gpii_ci_docker"
+    Environment = "${var.environment}"
+    Terraform = true
   }
 
   provisioner "remote-exec" {
@@ -43,4 +45,8 @@ resource "aws_instance" "main" {
 # resource "aws_eip" "main_instance" {
 #   #instance = "${aws_instance.main.id}"
 #   vpc = true
+#   tags {
+#     Environment = "${var.environment}"
+#     Terraform = true
+#   }
 # }

@@ -3,6 +3,8 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
   tags {
     Name = "main vpc"
+    Environment = "${var.environment}"
+    Terraform = true
   }
 }
 
@@ -10,6 +12,8 @@ resource "aws_internet_gateway" "main" {
   vpc_id = "${aws_vpc.main.id}"
   tags {
     Name = "main internet gateway"
+    Environment = "${var.environment}"
+    Terraform = true
   }
 }
 
@@ -21,6 +25,8 @@ resource "aws_subnet" "main" {
   depends_on = ["aws_internet_gateway.main"]
   tags {
     Name = "main subnet"
+    Environment = "${var.environment}"
+    Terraform = true
   }
 }
 
@@ -28,6 +34,8 @@ resource "aws_route_table" "main" {
   vpc_id = "${aws_vpc.main.id}"
   tags {
     Name = "main route table"
+    Environment = "${var.environment}"
+    Terraform = true
   }
 }
 
@@ -60,6 +68,8 @@ resource "aws_default_security_group" "default" {
 
   tags {
     Name = "terraform default"
+    Environment = "${var.environment}"
+    Terraform = true
   }
 }
 
@@ -69,6 +79,8 @@ resource "aws_security_group" "main" {
   vpc_id = "${aws_vpc.main.id}"
   tags {
     Name = "main security group"
+    Environment = "${var.environment}"
+    Terraform = true
   }
 }
 
