@@ -36,6 +36,7 @@ resource "aws_instance" "main" {
     ]
     connection {
       user = "centos"
+      private_key = "${file("~/.ssh/gpii-key.pem")}"
     }
   }
 }
