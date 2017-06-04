@@ -19,8 +19,9 @@ promote:
   - cd gpii-terraform-live
   - echo "$CI_COMMIT_SHA"  # So it's visible in the log
   - bin/promote-module "$CI_COMMIT_SHA" dev
-  - git commit -m "Promote version '$CI_COMMIT_SHA' to env 'dev'"
+  - bin/promote-module "$CI_COMMIT_SHA" stg
+  - git commit -m "Promote version '$CI_COMMIT_SHA' to envs 'dev' and 'stg'."
   - git push origin HEAD
-  # Until we have a mechanism to sync github -> gitlab
+  # Until we have a general mechanism to sync github -> gitlab
   - git remote add gitlab git@gitlab.com:gpii-ops/gpii-terraform-live.git
   - git push gitlab HEAD
