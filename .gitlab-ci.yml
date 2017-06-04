@@ -19,7 +19,6 @@ promote:
   - cd gpii-terraform-live
   - git rev-parse HEAD
   - git checkout -b tmp-promote
-  - sleep 60  # Make it easier to test a race condition between clone and an upstream update before our local update
   - echo "$CI_COMMIT_SHA"  # So it's visible in the log
   - bin/promote-module "$CI_COMMIT_SHA" dev
   - bin/promote-module "$CI_COMMIT_SHA" stg
