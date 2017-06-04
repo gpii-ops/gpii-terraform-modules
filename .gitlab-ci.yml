@@ -18,14 +18,10 @@ promote:
   - git clone --depth 2 git@github.com:gpii-ops/gpii-terraform-live
   - cd gpii-terraform-live
   - git rev-parse HEAD
-  - git checkout -b tmp-promote
   - echo "$CI_COMMIT_SHA"  # So it's visible in the log
   - bin/promote-module "$CI_COMMIT_SHA" dev
   - bin/promote-module "$CI_COMMIT_SHA" stg
   - git commit -m "Promote version '$CI_COMMIT_SHA' to envs 'dev' and 'stg'."
-  - git checkout master
-  - git merge --ff tmp-promote
-  - git branch -D tmp-promote
   - git push origin HEAD
   # Until we have a general mechanism to sync github -> gitlab
   - git remote add gitlab git@gitlab.com:gpii-ops/gpii-terraform-live.git
