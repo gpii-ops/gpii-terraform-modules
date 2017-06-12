@@ -11,7 +11,6 @@ resource "aws_instance" "main" {
     Group = "aws_gpii_ci_docker"
     Environment = "${var.environment}"
     Terraform = true
-    Favorite_Colour = "grey"
   }
 
   provisioner "remote-exec" {
