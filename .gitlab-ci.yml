@@ -15,14 +15,17 @@ promote:
   stage: deploy
   script:
   - cd "$TMPDIR"
-  - git clone --depth 2 git@github.com:gpii-ops/gpii-terraform-live
-  - cd gpii-terraform-live
-  - git rev-parse HEAD
-  - echo "$CI_COMMIT_SHA"  # So it's visible in the log
-  - bin/promote-module "$CI_COMMIT_SHA" dev
-  - bin/promote-module "$CI_COMMIT_SHA" stg
-  - git commit -m "Promote version '$CI_COMMIT_SHA' to envs 'dev' and 'stg'."
-  - git push origin HEAD
-  # Until we have a general mechanism to sync github -> gitlab
-  - git remote add gitlab git@gitlab.com:gpii-ops/gpii-terraform-live.git
-  - git push gitlab HEAD
+  - touch start
+  - sleep 300
+  - touch finish
+#  - git clone --depth 2 git@github.com:gpii-ops/gpii-terraform-live
+#  - cd gpii-terraform-live
+#  - git rev-parse HEAD
+#  - echo "$CI_COMMIT_SHA"  # So it's visible in the log
+#  - bin/promote-module "$CI_COMMIT_SHA" dev
+#  - bin/promote-module "$CI_COMMIT_SHA" stg
+#  - git commit -m "Promote version '$CI_COMMIT_SHA' to envs 'dev' and 'stg'."
+#  - git push origin HEAD
+#  # Until we have a general mechanism to sync github -> gitlab
+#  - git remote add gitlab git@gitlab.com:gpii-ops/gpii-terraform-live.git
+#  - git push gitlab HEAD
