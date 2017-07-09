@@ -2,6 +2,8 @@
 .bundle/
 graph*.png
 .kitchen/
+modules/k8s/data
+modules/k8s/kubernetes.tf
 .terraform/
 test/inspec.lock
 vendor/
