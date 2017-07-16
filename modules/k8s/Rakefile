@@ -13,13 +13,17 @@ rule "kubernetes.tf" => "Rakefile" do
     user = ENV["USER"] || "unknown-user"
     ENV["TF_VAR_environment"] = "dev-#{user}"
   end
+  if ENV["TF_VAR_cluster_name"].nil?
+    ENV["TF_VAR_cluster_name"] = "k8s-#{ENV["TF_VAR_environment"]}.gpii.net"
+  end
   sh "kops delete cluster \
     --yes \
-    --name=k8s-$TF_VAR_environment.gpii.net \
+    --name=$TF_VAR_cluster_name \
+    --unregister \
     || echo 'kops delete cluster failed, but that is ok.' \
   "
   sh "kops create cluster \
-    --name=k8s-$TF_VAR_environment.gpii.net \
+    --name=$TF_VAR_cluster_name \
     --channel=alpha \
     --kubernetes-version=1.6.1 \
     --cloud=aws \
