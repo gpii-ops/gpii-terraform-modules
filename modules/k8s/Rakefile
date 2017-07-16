@@ -10,7 +10,10 @@ rule "kubernetes.tf" => "Rakefile" do
   # side will win in the long run, but I'm punting deduplication until the
   # design is clearer.
   if ENV["TF_VAR_environment"].nil?
-    user = ENV["USER"] || "unknown-user"
+    if ENV["USER"].nil? || ENV["USER"].empty?
+      raise "ERROR: Please set $USER (or $TF_VAR_environment, if you're sure you know what you're doing)."
+    end
+    user = ENV["USER"]
     ENV["TF_VAR_environment"] = "dev-#{user}"
   end
   if ENV["TF_VAR_cluster_name"].nil?
@@ -37,8 +40,8 @@ rule "kubernetes.tf" => "Rakefile" do
     --ssh-public-key=~/.ssh/id_rsa.gpii-ci.pub
   "
 end
-CLOBBER << "kubernetes.tf"
-CLOBBER << "data"
+CLEAN << "kubernetes.tf"
+CLEAN << "data"
 
 
 # vim: ts=2 sw=2:
