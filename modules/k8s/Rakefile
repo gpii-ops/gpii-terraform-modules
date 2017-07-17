@@ -1,9 +1,8 @@
 require 'rake/clean'
 
 task :default => :generate
-task :generate => "kubernetes.tf"
 
-rule "kubernetes.tf" => "Rakefile" do
+task :generate => "Rakefile" do
   ENV["S3_BUCKET"] = "gpii-kubernetes-state"
   ENV["KOPS_STATE_STORE"] = "s3://#{ENV['S3_BUCKET']}"
   # This logic duplicates logic on the gpii-terraform-live side. I suspect this
